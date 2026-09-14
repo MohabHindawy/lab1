@@ -1,16 +1,17 @@
-# React + Vite
+# Lab 1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The backend `getTodos` controller now reads the optional `done` query parameter from `req.query` and builds a MongoDB filter from it.
 
-Currently, two official plugins are available:
+The API supports:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `GET /api/todos` – returns all todos
+- `GET /api/todos?done=false` – returns active todos
+- `GET /api/todos?done=true` – returns completed todos
 
-## React Compiler
+If no `done` parameter is provided, the filter stays empty and the original behavior of returning all todos is preserved.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+On the frontend, `fetchTodos` now accepts a filter and sends the appropriate query parameter using Axios. `App.jsx` stores the current filter as `all`, `active`, or `done`, and the `useEffect` fetches the todos again whenever this filter changes.
 
-## Expanding the ESLint configuration
+Three buttons were added for **All**, **Active**, and **Done**, allowing the user to change the current filter.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The filtering is done on the server rather than filtering the already-loaded React array. This requires a new request whenever the filter changes, but means the server only returns the todos that are actually needed.
