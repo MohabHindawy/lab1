@@ -1,5 +1,5 @@
 // TodoItem.jsx
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function TodoItem({ todo, onToggle, onRename, onRemove }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -28,12 +28,18 @@ export default function TodoItem({ todo, onToggle, onRename, onRemove }) {
           autoFocus
         />
       ) : (
-        <span className={`todo-title${todo.done ? ' done' : ''}`}>{todo.title}</span>
+        <span className={`todo-title${todo.done ? " done" : ""}`}>
+          {todo.title}
+        </span>
       )}
 
       <div className="todo-actions">
-        <button onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Save' : 'Edit'}</button>
-        <button className="remove-btn" onClick={() => onRemove(todo._id)}>Remove</button>
+        <button onClick={() => setIsEditing(!isEditing)}>
+          {isEditing ? "Save" : "Edit"}
+        </button>
+        <button className="remove-btn" onClick={() => onRemove(todo._id)}>
+          Remove
+        </button>
       </div>
     </li>
   );
